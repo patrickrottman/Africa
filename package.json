@@ -9,7 +9,7 @@
     "admin:api": "node --import=tsx tools/admin-api/src/index.ts",
     "photos:sync": "node --import=tsx tools/photos/src/sync.ts",
     "photos:check": "node --import=tsx tools/photos/src/check.ts",
-    "build": "npm run build:public",
+    "build": "ng build public",
     "build:public": "npm run photos:check && ng build public --configuration production",
     "build:admin": "ng build admin",
     "watch": "ng build public --watch --configuration development",
