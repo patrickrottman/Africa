@@ -84,9 +84,10 @@ import { BlurhashPlaceholderComponent } from '../../shared/components/blurhash-p
       height: calc(100vh - var(--header-height));
       min-height: 600px;
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: center;
       overflow: hidden;
+      padding-bottom: 4rem;
     }
 
     .hero-image-container {
@@ -117,9 +118,9 @@ import { BlurhashPlaceholderComponent } from '../../shared/components/blurhash-p
       inset: 0;
       background: linear-gradient(
         180deg,
-        rgba(0, 0, 0, 0.35) 0%,
-        rgba(0, 0, 0, 0.2) 40%,
-        rgba(0, 0, 0, 0.5) 100%
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0.1) 40%,
+        rgba(0, 0, 0, 0.7) 100%
       );
     }
 
@@ -208,12 +209,7 @@ import { BlurhashPlaceholderComponent } from '../../shared/components/blurhash-p
     }
 
     .scroll-indicator {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255, 255, 255, 0.7);
-      animation: bounce 2s infinite;
+      display: none;
     }
 
     @keyframes bounce {
@@ -299,9 +295,9 @@ import { BlurhashPlaceholderComponent } from '../../shared/components/blurhash-p
 
     @media (max-width: 600px) {
       .hero {
-        height: 70vh;
-        min-height: 400px;
-        max-height: 500px;
+        height: 85vh;
+        min-height: 500px;
+        padding-bottom: 2rem;
       }
 
       .cta-buttons {
@@ -312,10 +308,6 @@ import { BlurhashPlaceholderComponent } from '../../shared/components/blurhash-p
       .cta-buttons a {
         width: 100%;
         max-width: 280px;
-      }
-
-      .scroll-indicator {
-        display: none;
       }
 
       .intro {
