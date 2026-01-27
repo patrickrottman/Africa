@@ -135,13 +135,6 @@ async function validatePhoto(
     }
   }
 
-  if (photo.variants.original) {
-    const originalPath = path.join(baseDir, 'apps/public/src', photo.variants.original.jpgUrl);
-    if (!(await fileExists(originalPath))) {
-      errors.push({ type: 'error', message: `Missing original: ${photo.variants.original.jpgUrl}` });
-    }
-  }
-
   return errors;
 }
 

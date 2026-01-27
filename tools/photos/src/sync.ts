@@ -71,6 +71,7 @@ async function sync(): Promise<void> {
     const existing = existingPhotosById.get(id);
     if (existing) {
       const metadata = await readMetadata(sourcePath);
+      const { original, ...variantsWithoutOriginal } = existing.variants as any;
       photos.push({
         ...existing,
         originalFilename: file,
@@ -78,6 +79,7 @@ async function sync(): Promise<void> {
         tags: metadata.tags,
         description: metadata.description,
         exif: metadata.exif,
+        variants: variantsWithoutOriginal,
       });
       console.log(`  ID: ${id} (using cached derivatives)`);
       continue;
