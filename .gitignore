@@ -45,6 +45,3 @@ Thumbs.db
 /photos/original/*.JPG
 /photos/original/*.JPEG
 /.vs
-/.vscode
-/.editorconfig
-/tsconfig.json
