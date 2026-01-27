@@ -11,7 +11,6 @@ export interface VariantSet {
   thumb: Variant;
   medium: Variant;
   large: Variant;
-  original: Omit<Variant, 'avifUrl' | 'webpUrl'>;
 }
 
 export interface ExifData {

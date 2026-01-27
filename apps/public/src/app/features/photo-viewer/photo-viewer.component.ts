@@ -74,10 +74,10 @@ import { formatDate, formatBytes, isInternalTag } from '@africa/shared';
 
             <a
               mat-icon-button
-              [href]="p.variants.original.jpgUrl"
+              [href]="p.variants.large.jpgUrl"
               download
-              matTooltip="Download original"
-              aria-label="Download original"
+              matTooltip="Download high-res"
+              aria-label="Download high-res"
               (click)="$event.stopPropagation()"
             >
               <mat-icon>download</mat-icon>
@@ -196,7 +196,7 @@ import { formatDate, formatBytes, isInternalTag } from '@africa/shared';
               }
 
               <div class="info-label">File size</div>
-              <div class="info-value">{{ formatBytes(p.variants.original.bytes) }}</div>
+              <div class="info-value">{{ formatBytes(p.variants.large.bytes) }}</div>
             </div>
 
             @if (publicTags().length > 0) {

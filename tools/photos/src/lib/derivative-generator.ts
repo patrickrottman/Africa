@@ -15,7 +15,6 @@ const SIZES: SizeConfig[] = [
 ];
 
 const GENERATED_PATH = 'apps/public/src/assets/photos/generated';
-const ORIGINAL_PATH = 'apps/public/src/assets/photos/original';
 
 async function ensureDir(dir: string): Promise<void> {
   await fs.mkdir(dir, { recursive: true });
@@ -76,19 +75,6 @@ export async function generateDerivatives(
     };
   }
 
-  const originalDir = path.join(baseDir, ORIGINAL_PATH);
-  await ensureDir(originalDir);
-  const originalDest = path.join(originalDir, `${id}.jpg`);
-  await fs.copyFile(sourcePath, originalDest);
-  const originalBytes = await getFileSize(originalDest);
-
-  variants.original = {
-    jpgUrl: `assets/photos/original/${id}.jpg`,
-    width: originalWidth,
-    height: originalHeight,
-    bytes: originalBytes,
-  };
-
   return {
     variants: variants as VariantSet,
     width: originalWidth,
@@ -114,15 +100,4 @@ export async function cleanupStaleFiles(
     }
   }
 
-  const originalDir = path.join(baseDir, ORIGINAL_PATH);
-  try {
-    const files = await fs.readdir(originalDir);
-    for (const file of files) {
-      const id = path.basename(file, path.extname(file));
-      if (!validIds.has(id)) {
-        await fs.unlink(path.join(originalDir, file));
-      }
-    }
-  } catch {
-  }
 }
