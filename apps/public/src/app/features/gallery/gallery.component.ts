@@ -160,6 +160,9 @@ import { ResponsiveImageComponent } from '../../shared/components/responsive-ima
       background: var(--color-surface-variant);
       box-shadow: var(--shadow-sm);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+      touch-action: manipulation;
     }
 
     .photo-card:hover {
@@ -171,6 +174,7 @@ import { ResponsiveImageComponent } from '../../shared/components/responsive-ima
       position: relative;
       width: 100%;
       overflow: hidden;
+      min-height: 150px;
     }
 
     :host ::ng-deep .photo-img {
@@ -178,6 +182,7 @@ import { ResponsiveImageComponent } from '../../shared/components/responsive-ima
       height: 100%;
       object-fit: cover;
       transition: transform 0.4s ease;
+      pointer-events: none;
     }
 
     .photo-card:hover :host ::ng-deep .photo-img {
@@ -192,6 +197,7 @@ import { ResponsiveImageComponent } from '../../shared/components/responsive-ima
       align-items: center;
       justify-content: center;
       transition: background 0.3s ease;
+      pointer-events: none;
     }
 
     .photo-overlay mat-icon {

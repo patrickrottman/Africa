@@ -22,6 +22,11 @@ import type { Variant } from '@africa/shared';
     </picture>
   `,
   styles: `
+    :host {
+      display: contents;
+      pointer-events: none;
+    }
+
     picture {
       display: contents;
     }
@@ -30,6 +35,7 @@ import type { Variant } from '@africa/shared';
       max-width: 100%;
       height: auto;
       display: block;
+      pointer-events: none;
     }
   `,
 })

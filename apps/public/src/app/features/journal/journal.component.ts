@@ -146,6 +146,9 @@ import { formatDate } from '@africa/shared';
       display: block;
       text-decoration: none;
       color: inherit;
+      cursor: pointer;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+      touch-action: manipulation;
     }
 
     .photo-wrapper {
@@ -155,6 +158,7 @@ import { formatDate } from '@africa/shared';
       background: var(--color-surface-variant);
       box-shadow: var(--shadow-sm);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      min-height: 150px;
     }
 
     .photo-card:hover .photo-wrapper {
@@ -167,6 +171,7 @@ import { formatDate } from '@africa/shared';
       height: 100%;
       object-fit: cover;
       transition: transform 0.4s ease;
+      pointer-events: none;
     }
 
     .photo-card:hover :host ::ng-deep .photo-img {
@@ -181,6 +186,7 @@ import { formatDate } from '@africa/shared';
       align-items: center;
       justify-content: center;
       transition: background 0.3s ease;
+      pointer-events: none;
     }
 
     .photo-overlay mat-icon {
