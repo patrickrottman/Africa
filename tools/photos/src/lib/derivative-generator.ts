@@ -45,16 +45,21 @@ export async function generateDerivatives(
     const targetWidth = isLandscape ? size.longEdge : Math.round((size.longEdge * originalWidth) / originalHeight);
     const targetHeight = isLandscape ? Math.round((size.longEdge * originalHeight) / originalWidth) : size.longEdge;
 
-    const resized = sharp(sourcePath).rotate().resize(targetWidth, targetHeight, { fit: 'inside' });
+    const enhanced = sharp(sourcePath)
+      .rotate()
+      .resize(targetWidth, targetHeight, { fit: 'inside' })
+      .normalise()
+      .sharpen({ sigma: 0.5 })
+      .modulate({ saturation: 1.1 });
 
     const avifPath = path.join(sizeDir, `${id}.avif`);
     const webpPath = path.join(sizeDir, `${id}.webp`);
     const jpgPath = path.join(sizeDir, `${id}.jpg`);
 
     await Promise.all([
-      resized.clone().avif({ quality: 70 }).toFile(avifPath),
-      resized.clone().webp({ quality: 80 }).toFile(webpPath),
-      resized.clone().jpeg({ quality: 85, progressive: true }).toFile(jpgPath),
+      enhanced.clone().avif({ quality: 70 }).toFile(avifPath),
+      enhanced.clone().webp({ quality: 80 }).toFile(webpPath),
+      enhanced.clone().jpeg({ quality: 85, progressive: true }).toFile(jpgPath),
     ]);
 
     const [avifBytes, webpBytes, jpgBytes] = await Promise.all([
