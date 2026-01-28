@@ -25,6 +25,16 @@ async function getFileSize(filePath: string): Promise<number> {
   return stat.size;
 }
 
+async function analyzeImage(sourcePath: string): Promise<{ brightness: number; isUnderexposed: boolean }> {
+  const stats = await sharp(sourcePath).stats();
+  const avgBrightness = stats.channels.reduce((sum, ch) => sum + ch.mean, 0) / stats.channels.length;
+  const brightness = avgBrightness / 255;
+  return {
+    brightness,
+    isUnderexposed: brightness < 0.35,
+  };
+}
+
 export async function generateDerivatives(
   sourcePath: string,
   id: string,
@@ -34,6 +44,15 @@ export async function generateDerivatives(
   const metadata = await image.metadata();
   const originalWidth = metadata.width!;
   const originalHeight = metadata.height!;
+
+  const analysis = await analyzeImage(sourcePath);
+
+  const gammaOut = analysis.isUnderexposed ? 3.0 : 2.2;
+  const brightnessBoost = analysis.isUnderexposed ? 1.2 : 1.0;
+
+  if (analysis.isUnderexposed) {
+    console.log(`    [DARK IMAGE: brightness=${(analysis.brightness * 100).toFixed(0)}% - applying shadow boost]`);
+  }
 
   const variants: Partial<VariantSet> = {};
 
@@ -48,9 +67,10 @@ export async function generateDerivatives(
     const enhanced = sharp(sourcePath)
       .rotate()
       .resize(targetWidth, targetHeight, { fit: 'inside' })
+      .gamma(2.2, gammaOut)
       .normalise()
       .sharpen({ sigma: 0.5 })
-      .modulate({ saturation: 1.1 });
+      .modulate({ saturation: 1.1, brightness: brightnessBoost });
 
     const avifPath = path.join(sizeDir, `${id}.avif`);
     const webpPath = path.join(sizeDir, `${id}.webp`);
